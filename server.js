@@ -9,7 +9,7 @@ let pool = new pg.Pool({
   database: 'cruerrorclassification',
   password: 'Darr@381',
   host: 'localhost',
-  port: 5433,
+  port: 5432,
   max: 10
 });
 
