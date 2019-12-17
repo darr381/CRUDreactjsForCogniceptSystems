@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import Tabs from './components/Tabs';
+import './components/Tab.css';
 
 class App extends Component { //function App() {
   constructor(){
@@ -22,12 +24,10 @@ class App extends Component { //function App() {
   addRow(event){
     event.preventDefault();
     let data = {
-      s_num: this.refs.s_num.value ,
       error_type: this.refs.error_type.value,
       error_code: this.refs.error_code.value,
       error_description: this.refs.error_description.value,
       robot_tags: this.refs.robot_tags.value,
-      resolution: this.refs.resolution.value
     };
     var request = new Request('http://localhost:3000/public/new_row', {
       method: 'POST',
@@ -40,24 +40,28 @@ class App extends Component { //function App() {
       });
     });
   }
+  validate(s_num){
+    if(s_num === parseInt(s_num,10)){
+      return true;
+    }
+    else {
+      return  false;
+    }
+  }
 
   render() {
     let first_array;
     let title = this.state.title;
     let first=  this.state.first[0];
-
+    const isEnable = false;
     if(first != null){
-      first_array = JSON.parse(first);
-      console.log(first);
+      isEnable = this.validate(this.refs.s_num.value);
     }
+
     return (
       <div className='App'>
       <h1> {title} </h1>
       <form className = 'createForm'>
-
-      <div className="col-2">
-      <input type='text' ref="s_num" className= 'form-control' placeholder="S_NUM"/><br/>
-      </div>
       <div className="col-2">
       <input type='text' ref='error_type' className= 'form-control' placeholder="Error Type"/><br/>
       </div>
@@ -70,9 +74,6 @@ class App extends Component { //function App() {
       <div className="col-2">
       <input  type='text' ref='robot_tags' className= 'form-control' placeholder="Robot Tags"/><br/>
       </div>
-      <div className="col-2">
-      <input type='text' ref='resolution' className= 'form-control' placeholder="Resolution"/><br/>
-      </div>
       <div className='col-2'>
         <button onClick={this.addRow.bind(this)}>Add Row </button>
       </div>
@@ -81,7 +82,19 @@ class App extends Component { //function App() {
       </div>
       </form>
       <div> {JSON.stringify(first)}</div>
+      <div>
+      <h1>Tabs Demo</h1>
+      <Tabs>
+      <div label="Gator">
+
       </div>
+      <div label="Croc">
+      After 'while, <em>Crocodile</em>!
+      </div>
+      </Tabs>
+      </div>
+      </div>
+
     );
   }
 }

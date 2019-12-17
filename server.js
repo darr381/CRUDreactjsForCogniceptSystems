@@ -1,6 +1,7 @@
 let express = require('express');
 let bodyParser = require('body-parser');
 let morgan = require('morgan');
+var cors = require('cors');
 let pg = require('pg');
 const port = 3000;
 
@@ -28,6 +29,7 @@ let pool = new pg.Pool({
 
 let app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -84,11 +86,10 @@ app.patch('/public/update_row', function(request, response){
       return console.log(err);
     }
     else{
-      var s_num = request.body.s_num;
       var error_type = request.body.error_type;
       var error_description = request.body.error_description;
       var robot_tags = '{' + request.body.robot_tags + '}';
-      db.query('UPDATE first SET error_type = $1 ,error_description = $2 ,robot_tags =$3 WHERE s_num=$4',[error_type, error_description,robot_tags,s_num]
+      db.query('UPDATE first SET error_type = $1 ,error_description = $2 ,robot_tags =$3 WHERE ',[error_type, error_description,robot_tags]
     , (err,table) => {
       done();
       if(err){
@@ -109,13 +110,13 @@ app.post('/public/new_row', function(request,response){
       return console.log(err);
     }
     else{
-      var s_num = request.body.s_num;
+      console.log('inside post')
+      var error_code = request.body.error_code
       var error_type = request.body.error_type;
       var error_description = request.body.error_description;
       var robot_tags = '{' + request.body.robot_tags + '}';
-      var resolution =  request.body.resolution ;
-      db.query('INSERT INTO first (s_num , error_type, error_description , robot_tags, resolution) VALUES($1 , $2 ,$3 , $4 , $5)',
-      [s_num,error_type,error_description,robot_tags,resolution],(err,table) => {
+      db.query('INSERT INTO first (error_code, error_type, error_description , robot_tags) VALUES($1 , $2 ,$3,$4)',
+      [error_code,error_type,error_description,robot_tags],(err,table) => {
         done();
         if(err){
           console.log(err);

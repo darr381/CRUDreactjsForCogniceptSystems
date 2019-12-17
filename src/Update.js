@@ -13,7 +13,6 @@ class Update extends Component { //function App() {
   updateRow (event){
     event.preventDefault();
     let data = {
-      s_num: this.refs.s_num_update.value ,
       error_type: this.refs.error_type_update.value,
       error_code: this.refs.error_code_update.value,
       error_description: this.refs.error_description_update.value,
@@ -35,9 +34,6 @@ class Update extends Component { //function App() {
       <div>
       <h1> Update </h1>
       <form>
-            <div className="col-2">
-            <input type='text' ref="s_num_update" className= 'form-control' placeholder="S_NUM"/><br/>
-            </div>
             <div className="col-2">
             <input type='text' ref='error_type_update' className= 'form-control' placeholder="Error Type"/><br/>
             </div>
