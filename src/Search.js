@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
 import DisplayError from './DisplayError.js';
 class Search extends Component {
   constructor(){
@@ -13,7 +13,7 @@ class Search extends Component {
   showTable(event){
     event.preventDefault();
     let data = {error_code: this.refs.error_code_show.value}
-    var request = new Request('http://localhost:3000/public/table_data', {
+    var request = new Request('http://localhost:3200/public/table_data', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json' , 'Accept': 'application/json'}),
       body: JSON.stringify(data)

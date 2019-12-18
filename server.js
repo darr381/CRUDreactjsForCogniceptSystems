@@ -3,13 +3,23 @@ let bodyParser = require('body-parser');
 let morgan = require('morgan');
 var cors = require('cors');
 let pg = require('pg');
-const port = 3000;
+const port = 3200;
+
+// let pool = new pg.Pool({
+//   user: 'postgres',
+//   database: 'cruerrorclassification',
+//   password: 'Darr@381',
+//   host: 'localhost',
+//   port: 5432,
+//   max: 10
+// });
+
 
 let pool = new pg.Pool({
-  user: 'postgres',
+  user: 'cognicept',
   database: 'cruerrorclassification',
-  password: 'Darr@381',
-  host: 'localhost',
+  password: 'cognicept18',
+  host: '35.187.247.9',
   port: 5432,
   max: 10
 });
