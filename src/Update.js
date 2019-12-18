@@ -1,9 +1,13 @@
 import React, {Component} from 'react';
 import './App.css';
+<<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.css';
 import { InputText } from '@bit/primefaces.primereact.inputtext';
 import { Button } from '@bit/primefaces.primereact.button';
 import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
+=======
+//import 'bootstrap/dist/css/bootstrap.css';
+>>>>>>> Connected to Cloud Database Server
 
 class Update extends Component { //function App() {
   constructor(){

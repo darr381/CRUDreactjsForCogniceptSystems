@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
+//import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from './components/Tabs';
 import './components/Tab.css';
 import Update from './Update.js'
