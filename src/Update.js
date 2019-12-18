@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import Button from '@bit/grommet.grommet.button';
+import Lodash from 'lodash';
 
 class Update extends Component { //function App() {
   constructor(){
@@ -29,25 +31,51 @@ class Update extends Component { //function App() {
       });
     });
   }
+  changeTextarea(){
+    this.refs.error_description_update.style.height = 'auto';
+    this.refs.error_description_update.style.height = this.refs.error_description_update.scrollHeight + 'px';
+  }
   render() {
     return(
       <div>
       <h1> Update </h1>
       <form>
-            <div className="col-2">
-            <input type='text' ref='error_type_update' className= 'form-control' placeholder="Error Type"/><br/>
+        <table style={{marginLeft: '15vw',width: '60%'}}>
+          <tbody>
+            <tr>
+              <td ><label> Error Code</label> </td>
+              <td> <input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> </td>
+            </tr>
+            <br/>
+            <tr>
+              <td ><label> Error Type</label> </td>
+              <td> <input type='text' ref='error_type_update' className= 'form-control' placeholder="Error Code"/> </td>
+            </tr>
+            <br/>
+            <tr>
+              <td ><label> Error Description</label> </td>
+              <td> <textArea ref='error_description_update' onChange={this.changeTextarea.bind(this)}className= 'form-control' placeholder="Error Description"/> </td>
+            </tr>
+            <br/>
+            <tr>
+              <td ><label> Robot Tags</label> </td>
+              <td><input  type='text' ref='robot_tags_update' className= 'form-control' placeholder="Robot Tags"/> </td>
+            </tr>
+          </tbody>
+        </table>
+        <br/>
+        <button onClick={this.updateRow.bind(this)}> Update record </button>
+            {/*}<div className="d-inline-flex p-2">
             </div>
-            <div className="col-2">
-            <input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Code"/><br/>
+            <div className="d-inline-flex p-2">
+            <br/>
             </div>
-            <div className="col-2">
-            <textarea ref='error_description_update' className= 'form-control' placeholder="Error Description"/><br/>
+            <div className="d-inline-flex p-2">
+            <br/>
             </div>
-            <div className="col-2">
-            <input  type='text' ref='robot_tags_update' className= 'form-control' placeholder="Robot Tags"/><br/>
-            </div>
-            <button onClick={this.updateRow.bind(this)}> Update record </button>
-
+            <div className="d-inline-flex p-2">
+            <br/>
+            </div>*/}
       </form>
       </div>
 

@@ -4,23 +4,18 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from './components/Tabs';
 import './components/Tab.css';
+import Update from './Update.js'
+import Delete from './Delete.js'
+import Search from './Search.js'
 
 class App extends Component { //function App() {
   constructor(){
     super();
     this.state = {
-      title: 'CorErrorClassification',
       first: []
     }
   }
-  showTable(event){
-    event.preventDefault();
-    var request = new Request('http://localhost:3000/public/table_data', {
-      method: 'GET',
-      headers: new Headers({'Content-Type': 'application/json' , 'Accept': 'application/json'}),
-    });
-    fetch(request).then(response => response.json()).then(data => this.setState({first: data})); //data is the data returned from app.get after converting the response to json
-  }
+
   addRow(event){
     event.preventDefault();
     let data = {
@@ -40,56 +35,63 @@ class App extends Component { //function App() {
       });
     });
   }
-  validate(s_num){
-    if(s_num === parseInt(s_num,10)){
-      return true;
-    }
-    else {
-      return  false;
-    }
+  changeTextarea(){
+    this.refs.error_description.style.height = 'auto';
+    this.refs.error_description.style.height = this.refs.error_description.scrollHeight + 'px';
   }
-
   render() {
-    let first_array;
-    let title = this.state.title;
-    let first=  this.state.first[0];
-    const isEnable = false;
-    if(first != null){
-      isEnable = this.validate(this.refs.s_num.value);
-    }
-
     return (
       <div className='App'>
-      <h1> {title} </h1>
-      <form className = 'createForm'>
-      <div className="col-2">
-      <input type='text' ref='error_type' className= 'form-control' placeholder="Error Type"/><br/>
-      </div>
-      <div className="col-2">
-      <input type='text' ref='error_code' className= 'form-control' placeholder="Error Code"/><br/>
-      </div>
-      <div className="col-2">
-      <textarea ref='error_description' className= 'form-control' placeholder="Error Description"/><br/>
-      </div>
-      <div className="col-2">
-      <input  type='text' ref='robot_tags' className= 'form-control' placeholder="Robot Tags"/><br/>
-      </div>
-      <div className='col-2'>
-        <button onClick={this.addRow.bind(this)}>Add Row </button>
-      </div>
-      <div className='col-2'>
-      <button onClick={this.showTable.bind(this)}>Show Database </button>
-      </div>
-      </form>
-      <div> {JSON.stringify(first)}</div>
       <div>
-      <h1>Tabs Demo</h1>
       <Tabs>
-      <div label="Gator">
+      <div label="New Error">
+      <h1> New Error </h1>
+      <form className = 'createForm'>
+      <table style={{marginLeft: '15vw',width: '60%'}}>
+        <tbody>
+          <tr>
+            <td ><label> Error Code</label> </td>
+            <td><input type='text' ref='error_code' className= 'form-control' placeholder="Error Code"/> </td>
+          </tr>
+          <br/>
+          <tr>
+            <td ><label> Error Type</label> </td>
+            <td> <input type='text' ref='error_type' className= 'form-control' placeholder="Error Type"/> </td>
+          </tr>
+          <br/>
+          <tr>
+            <td ><label> Error Description</label> </td>
+            <td> <textArea onChange={this.changeTextarea.bind(this)} ref='error_description' className= 'form-control ' placeholder="Error Description"/> </td>
+          </tr>
+          <br/>
+          <tr>
+            <td ><label> Robot Tags</label> </td>
+            <td><input  type='text' ref='robot_tags' className= 'form-control' placeholder="Robot Tags"/> </td>
+          </tr>
+        </tbody>
+      </table>
+      <br/>
+
+      {/* <div className="d-inline-flex p-12">
+      </div>
+       <div className="d-inline-flex p-2">
+       </div>
+       <div className="d-inline-flex p-2">
+       </div>
+       <div className='d-inline-flex p-2'>
+       </div> */}
+      <button onClick={this.addRow.bind(this)}>Add Row </button>
+      </form>
 
       </div>
-      <div label="Croc">
-      After 'while, <em>Crocodile</em>!
+      <div label="Search Error">
+        <Search />
+      </div>
+      <div label="Update Error">
+          <Update />
+      </div>
+      <div label="Delete Error">
+        <Delete />
       </div>
       </Tabs>
       </div>

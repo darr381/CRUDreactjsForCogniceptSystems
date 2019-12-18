@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import FlashMessage from 'react-flash-message'
 
 class Delete extends Component { //function App() {
   constructor(){
     super();
     this.state = {
-      title: 'CorErrorClassification',
-      first: []
+      showAlert: false,
+      first: [],
+      key: 1
     }
   }
   deleteRow(event){
-    console.log('deleteRow entered');
+    this.setState({showAlert: false})
     event.preventDefault();
     let data = {
-      s_num: this.refs.s_num_delete.value ,
+      error_code: this.refs.error_code_delete.value
     };
     var request = new Request('http://localhost:3000/public/delete_row', {
       method: 'DELETE',
@@ -26,20 +28,37 @@ class Delete extends Component { //function App() {
       response.json().then(function(data){
       });
     });
+    this.setState({showAlert: true})
+      this.setState({key: this.state.key+1})
   }
   render() {
+    let aler = this.state.showAlert
     return(
       <div>
-      <h1> Delete </h1>
-      <form>
-            <div className="col-2">
-            <input type='text' ref="s_num_delete" className= 'form-control' placeholder="S_NUM"/><br/>
-            </div>
-            <button onClick={this.deleteRow.bind(this)}> Delete Record </button>
-      </form>
+        <h1> Delete Record</h1>
+        <form>
+              <div className="d-inline-flex p-2">
+              <input type='text' ref="error_code_delete" className= 'form-control' placeholder="Error Code"/><br/>
+              </div>
+              <button onClick={this.deleteRow.bind(this)}> Delete Record </button>
+        </form>
+          <HandleAert key={this.state.key} props={this.state.showAlert} />
       </div>
     );
   }
+}
+function HandleAert(props){
+  console.log(props)
+  if(props.props ){
+
+    console.log('falsh');
+    return(
+      <FlashMessage duration={1000}>
+        <strong>Successfully Deleted</strong>
+      </FlashMessage>
+    )
+  }
+  return <div> </div>
 }
 
 export default Delete;

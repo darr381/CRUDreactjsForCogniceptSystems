@@ -40,19 +40,22 @@ app.use(function(request,response,next){
   response.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept ");
   next();
 });
-app.get('/public/table_data', function(request, response){
+app.post('/public/table_data', function(request, response){
   pool.connect(function(err,db,done){
     if(err){
       return response.status(400).send(err);
     }
     else{
-      db.query("SELECT * FROM first", function(err,table){
+      let error_code = request.body.error_code
+      console.log(error_code)
+      db.query("SELECT * FROM first where error_code=$1",[error_code], function(err,table){
         done();
         if(err){
           return response.status(400).send(err);
         }
         else{
           console.log("table sent");
+          console.log(table.rows);
           return response.status(200).send(table.rows);
         }
       });
@@ -66,8 +69,8 @@ app.delete('/public/delete_row',function(request,response){
       return console.log(err);
     }
     else{
-      var s_num = request.body.s_num;
-      db.query('DELETE FROM first WHERE s_num =$1 ',[s_num], (err,table)=>{
+      var error_code = request.body.error_code;
+      db.query('DELETE FROM first WHERE error_code =$1 ',[error_code], (err,table)=>{
         done();
         if(err){
           console.log(err);
@@ -86,10 +89,11 @@ app.patch('/public/update_row', function(request, response){
       return console.log(err);
     }
     else{
+      var error_code = request.body.error_code
       var error_type = request.body.error_type;
       var error_description = request.body.error_description;
       var robot_tags = '{' + request.body.robot_tags + '}';
-      db.query('UPDATE first SET error_type = $1 ,error_description = $2 ,robot_tags =$3 WHERE ',[error_type, error_description,robot_tags]
+      db.query('UPDATE first SET error_type = $1 ,error_description = $2 ,robot_tags =$3 WHERE error_code = $4 ',[error_type, error_description,robot_tags,error_code]
     , (err,table) => {
       done();
       if(err){
