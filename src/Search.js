@@ -40,6 +40,7 @@ class Search extends Component {
 function ShowError(props){
   let dataPresent = props.first.dataPresent ?props.first.dataPresent : null
   if(dataPresent){
+    console.log(props)
     return <DisplayError first={props}/>
   }
   return <div></div>

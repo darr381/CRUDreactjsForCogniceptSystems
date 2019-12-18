@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Button from '@bit/grommet.grommet.button';
-import Lodash from 'lodash';
 
 class Update extends Component { //function App() {
   constructor(){
