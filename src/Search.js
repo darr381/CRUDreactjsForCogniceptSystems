@@ -19,7 +19,7 @@ class Search extends Component {
       body: JSON.stringify(data)
     });
     fetch(request).then(response => response.json())
-    .then(data => {this.setState({first: data ,  dataPresent: true})}); //data is the data returned from app.get after converting the response to json
+    .then(data => {this.setState({first: data ,  dataPresent: true});console.log(data);}); //data is the data returned from app.get after converting the response to json
 
   }
   render() {
@@ -38,11 +38,11 @@ class Search extends Component {
   }
 }
 function ShowError(props){
-  let dataPresent = props.first.dataPresent ?props.first.dataPresent : null
-  if(dataPresent){
+  let dataPresent = props.first.dataPresent ? props.first.dataPresent : null
+  if(dataPresent ){
     console.log(props)
     return <DisplayError first={props}/>
   }
-  return <div></div>
+  return <div> </div>
 }
 export default Search;

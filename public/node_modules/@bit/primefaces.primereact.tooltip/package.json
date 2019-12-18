@@ -1,0 +1,17 @@
+{
+  "name": "@bit/primefaces.primereact.tooltip",
+  "version": "3.1.8",
+  "homepage": "https://bit.dev/primefaces/primereact/tooltip",
+  "main": "dist/tooltip/Tooltip.js",
+  "dependencies": {
+    "@bit/primefaces.primereact.utils.dom-handler": "3.1.8"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "license": "SEE LICENSE IN LICENSE",
+  "bit": {
+    "env": {
+      "compiler": "bit.envs/compilers/react@1.0.2"
+    }
+  }
+}

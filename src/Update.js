@@ -1,22 +1,29 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import { InputText } from '@bit/primefaces.primereact.inputtext';
+import { Button } from '@bit/primefaces.primereact.button';
+import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
 
 class Update extends Component { //function App() {
   constructor(){
     super();
     this.state = {
       title: 'CorErrorClassification',
-      first: []
+      first: [],
+      error_code: null,
+      error_type: null,
+      error_description: null,
+      robot_tags: null
     }
   }
   updateRow (event){
     event.preventDefault();
     let data = {
-      error_type: this.refs.error_type_update.value,
-      error_code: this.refs.error_code_update.value,
+      error_type: this.state.error_type,
+      error_code: this.state.error_code,
       error_description: this.refs.error_description_update.value,
-      robot_tags: this.refs.robot_tags_update.value,
+      robot_tags: this.state.robot_tags,
     };
     var request = new Request('http://localhost:3000/public/update_row', {
       method: 'PATCH',
@@ -36,18 +43,21 @@ class Update extends Component { //function App() {
   render() {
     return(
       <div>
-      <h1> Update </h1>
+      <PrimereactStyle/>
       <form>
         <table style={{marginLeft: '15vw',width: '60%'}}>
           <tbody>
             <tr>
               <td ><label> Error Code</label> </td>
-              <td> <input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> </td>
+              <td>
+                <InputText type='text' onChange={e=>{this.setState({error_code: e.target.value})}} placeholder='Error Code' tooltip='Numbers Only' className='form-control'/>
+              {/*}<input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> */}
+              </td>
             </tr>
             <br/>
             <tr>
               <td ><label> Error Type</label> </td>
-              <td> <input type='text' ref='error_type_update' className= 'form-control' placeholder="Error Code"/> </td>
+              <td> <InputText type='text' onChange={(e)=>{this.setState({error_type: e.target.value})}} placeholder='Error Type' tooltip='Conscise' className='form-control'/> {/*<input type='text' ref='error_type_update' className= 'form-control' placeholder="Error Code"/>*/} </td>
             </tr>
             <br/>
             <tr>
@@ -57,7 +67,7 @@ class Update extends Component { //function App() {
             <br/>
             <tr>
               <td ><label> Robot Tags</label> </td>
-              <td><input  type='text' ref='robot_tags_update' className= 'form-control' placeholder="Robot Tags"/> </td>
+              <td><InputText type='text' placeholder='Robot Tags' tooltip='Tag1 , Tag2 , Tag3' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control'/> </td>
             </tr>
           </tbody>
         </table>
