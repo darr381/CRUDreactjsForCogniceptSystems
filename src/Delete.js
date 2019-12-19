@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
+<<<<<<< HEAD
 import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
+=======
+//import 'bootstrap/dist/css/bootstrap.css';
+>>>>>>> 93f1865c8f4b8f654eeab9cad493986110bf7264
 import FlashMessage from 'react-flash-message'
 
 class Delete extends Component { //function App() {
