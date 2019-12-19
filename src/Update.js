@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
-<<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.css';
 import { InputText } from '@bit/primefaces.primereact.inputtext';
 import { Button } from '@bit/primefaces.primereact.button';
 import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
 import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
-=======
-//import 'bootstrap/dist/css/bootstrap.css';
->>>>>>> 93f1865c8f4b8f654eeab9cad493986110bf7264
 
 class Update extends Component { //function App() {
   constructor(){
