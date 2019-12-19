@@ -7,6 +7,7 @@ import './components/Tab.css';
 import Update from './Update.js'
 import Delete from './Delete.js'
 import Search from './Search.js'
+import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
 
 class App extends Component { //function App() {
   constructor(){
@@ -24,7 +25,7 @@ class App extends Component { //function App() {
       error_description: this.refs.error_description.value,
       robot_tags: this.refs.robot_tags.value,
     };
-    var request = new Request('http://localhost:3000/public/new_row', {
+    var request = new Request('http://localhost:3200/public/new_row', {
       method: 'POST',
       headers: new Headers({'Content-Type': 'application/json'}),
       body: JSON.stringify(data)
@@ -80,9 +81,10 @@ class App extends Component { //function App() {
        </div>
        <div className='d-inline-flex p-2'>
        </div> */}
-      <button onClick={this.addRow.bind(this)}>Add Row </button>
       </form>
-
+      <div className='col-3' style={{marginLeft: "500px"}}>
+        <PrimaryButton onClick={this.addRow.bind(this) } text='Add Row' />
+      </div>
       </div>
       <div label="Search Error">
         <Search />

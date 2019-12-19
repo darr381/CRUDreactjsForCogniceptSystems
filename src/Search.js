@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 //import 'bootstrap/dist/css/bootstrap.css';
 import DisplayError from './DisplayError.js';
+import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
+
 class Search extends Component {
   constructor(){
     super();
@@ -29,8 +31,10 @@ class Search extends Component {
       <form>
             <div className="d-inline-flex p-2">
             <input type='text' ref="error_code_show" className= 'form-control' placeholder="Error Code"/><br/>
+            </div><br/><br/>
+            <div className='col-2' style={{marginLeft: "535px"}}>
+              <PrimaryButton onClick={this.showTable.bind(this) } text='Show Record' />
             </div>
-            <button onClick={this.showTable.bind(this)}> Show Record </button>
       </form>
         <ShowError first={this.state}/>
       </div>

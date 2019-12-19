@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-//import 'bootstrap/dist/css/bootstrap.css';
+import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
 import FlashMessage from 'react-flash-message'
 
 class Delete extends Component { //function App() {
@@ -18,7 +18,7 @@ class Delete extends Component { //function App() {
     let data = {
       error_code: this.refs.error_code_delete.value
     };
-    var request = new Request('http://localhost:3000/public/delete_row', {
+    var request = new Request('http://localhost:3200/public/delete_row', {
       method: 'DELETE',
       headers: new Headers({'Content-Type': 'application/json' , 'Accept': 'application/json'}),
       body: JSON.stringify(data)
@@ -39,8 +39,10 @@ class Delete extends Component { //function App() {
         <form>
               <div className="d-inline-flex p-2">
               <input type='text' ref="error_code_delete" className= 'form-control' placeholder="Error Code"/><br/>
+              </div><br/><br/>
+              <div className='col-2' style={{marginLeft: "535px"}}>
+                <PrimaryButton onClick={this.deleteRow.bind(this)} text='Delete Record' />
               </div>
-              <button onClick={this.deleteRow.bind(this)}> Delete Record </button>
         </form>
           <HandleAert key={this.state.key} props={this.state.showAlert} />
       </div>

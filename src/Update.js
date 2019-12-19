@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { InputText } from '@bit/primefaces.primereact.inputtext';
 import { Button } from '@bit/primefaces.primereact.button';
 import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
+import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
 
 class Update extends Component { //function App() {
   constructor(){
@@ -25,7 +26,7 @@ class Update extends Component { //function App() {
       error_description: this.refs.error_description_update.value,
       robot_tags: this.state.robot_tags,
     };
-    var request = new Request('http://localhost:3000/public/update_row', {
+    var request = new Request('http://localhost:3200/public/update_row', {
       method: 'PATCH',
       headers: new Headers({'Content-Type': 'application/json' , 'Accept': 'application/json'}),
       body: JSON.stringify(data)
@@ -43,48 +44,50 @@ class Update extends Component { //function App() {
   render() {
     return(
       <div>
-      <PrimereactStyle/>
-      <form>
-        <table style={{marginLeft: '15vw',width: '60%'}}>
-          <tbody>
-            <tr>
-              <td ><label> Error Code</label> </td>
-              <td>
-                <InputText type='text' onChange={e=>{this.setState({error_code: e.target.value})}} placeholder='Error Code' tooltip='Numbers Only' className='form-control'/>
-              {/*}<input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> */}
-              </td>
-            </tr>
-            <br/>
-            <tr>
-              <td ><label> Error Type</label> </td>
-              <td> <InputText type='text' onChange={(e)=>{this.setState({error_type: e.target.value})}} placeholder='Error Type' tooltip='Conscise' className='form-control'/> {/*<input type='text' ref='error_type_update' className= 'form-control' placeholder="Error Code"/>*/} </td>
-            </tr>
-            <br/>
-            <tr>
-              <td ><label> Error Description</label> </td>
-              <td> <textArea ref='error_description_update' onChange={this.changeTextarea.bind(this)}className= 'form-control' placeholder="Error Description"/> </td>
-            </tr>
-            <br/>
-            <tr>
-              <td ><label> Robot Tags</label> </td>
-              <td><InputText type='text' placeholder='Robot Tags' tooltip='Tag1 , Tag2 , Tag3' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control'/> </td>
-            </tr>
-          </tbody>
-        </table>
-        <br/>
-        <button onClick={this.updateRow.bind(this)}> Update record </button>
-            {/*}<div className="d-inline-flex p-2">
-            </div>
-            <div className="d-inline-flex p-2">
-            <br/>
-            </div>
-            <div className="d-inline-flex p-2">
-            <br/>
-            </div>
-            <div className="d-inline-flex p-2">
-            <br/>
-            </div>*/}
-      </form>
+        <PrimereactStyle/>
+        <form>
+          <table style={{marginLeft: '15vw',width: '60%'}}>
+            <tbody>
+              <tr>
+                <td ><label> Error Code</label> </td>
+                <td>
+                  <InputText type='text' onChange={e=>{this.setState({error_code: e.target.value})}} placeholder='Error Code' tooltip='Numbers Only' className='form-control'/>
+                {/*}<input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> */}
+                </td>
+              </tr>
+              <br/>
+              <tr>
+                <td ><label> Error Type</label> </td>
+                <td> <InputText type='text' onChange={(e)=>{this.setState({error_type: e.target.value})}} placeholder='Error Type' tooltip='Conscise' className='form-control'/> {/*<input type='text' ref='error_type_update' className= 'form-control' placeholder="Error Code"/>*/} </td>
+              </tr>
+              <br/>
+              <tr>
+                <td ><label> Error Description</label> </td>
+                <td> <textArea ref='error_description_update' onChange={this.changeTextarea.bind(this)}className= 'form-control' placeholder="Error Description"/> </td>
+              </tr>
+              <br/>
+              <tr>
+                <td ><label> Robot Tags</label> </td>
+                <td><InputText type='text' placeholder='Robot Tags' tooltip='Tag1 , Tag2 , Tag3' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control'/> </td>
+              </tr>
+            </tbody>
+          </table>
+          <br/>
+              {/*}<div className="d-inline-flex p-2">
+              </div>
+              <div className="d-inline-flex p-2">
+              <br/>
+              </div>
+              <div className="d-inline-flex p-2">
+              <br/>
+              </div>
+              <div className="d-inline-flex p-2">
+              <br/>
+              </div>*/}
+        </form>
+        <div className='col-2' style={{marginLeft: '500px'}}>
+          <PrimaryButton onClick={this.updateRow.bind(this)} text='Update record'/>
+        </div>
       </div>
 
     );
