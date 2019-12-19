@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bit/lekanmedia.shared-ui.primary-button": "^1.0.7",
     "@bit/primefaces.primereact.button": "^3.1.8",
     "@bit/primefaces.primereact.inputtext": "^3.1.8",
     "@bit/primefaces.primereact.internal.stylelinks": "^3.1.8",
