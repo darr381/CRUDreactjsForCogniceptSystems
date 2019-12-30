@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import './App.css';
+import './Delete.css'
 import FlashMessage from 'react-flash-message'
+import Popup from "reactjs-popup";
+import ReactDOM from "react-dom";
 
 class Delete extends Component { //function App() {
   constructor(){
@@ -15,9 +17,25 @@ class Delete extends Component { //function App() {
       isFound: true,
       key_found: 1,
       key_deleted: 1,
-      isDeleted: false
+      isDeleted: false,
+      open: false
     }
+    this.deleteRow = this.deleteRow.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.finalDelete = this.finalDelete.bind(this);
   }
+  finalDelete(event){
+    this.closeModal();
+    this.deleteRow(event);
+  }
+  openModal() {
+    this.setState({ open: true });
+  }
+  closeModal() {
+    this.setState({ open: false });
+  }
+
   deleteRow(event){
     let that = this
     this.setState({showAlert: false})
@@ -134,6 +152,23 @@ class Delete extends Component { //function App() {
     return(
 
       <div>
+      <Popup open={this.state.open} closeOnDocumentClick onClose={this.closeModal}>
+        <a className="close" onClick={this.closeModal}> &times; </a>
+        <div className='content'>
+          <h1><strong> Confirmation </strong></h1><br/>
+          <div className='row'>
+            <div className='col-11'> Are you sure you want to delete ?</div>
+          </div><br/><br/>
+          <div className='row'>
+            <div className='col-6'>
+              <button className='form-control button' onClick={this.finalDelete} style={{backgroundColor:'#d9534f', color:'white'}}> Yes </button>
+            </div>
+            <div className='col-6'>
+              <button className='form-control button'> No </button>
+            </div>
+          </div>
+        </div>
+      </Popup>
         <h1> Delete Record</h1>
           <div className="d-inline-flex p-2">
             <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
@@ -141,7 +176,7 @@ class Delete extends Component { //function App() {
           <div className='col-2' style={{marginLeft: "400px"}}>
            <div className='row' style={{width:'400px'}}>
             <div className='col-6'>
-              <button className='form-control' onClick={this.deleteRow.bind(this)}> Delete Record </button>
+            <button className='form-control button' onClick={this.openModal}> Delete Record </button>
             </div>
             <div className='col-6'>
               <button className='form-control' onClick={this.findRow.bind(this)}> Find Record </button>
