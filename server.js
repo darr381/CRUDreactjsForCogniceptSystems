@@ -64,8 +64,6 @@ app.post('/public/table_data', function(request, response){
           return response.status(400).send(err);
         }
         else{
-          console.log("table sent");
-          console.log(table.rows);
           return response.status(200).send(table.rows);
         }
       });
@@ -82,12 +80,12 @@ app.delete('/public/delete_row',function(request,response){
       var error_code = request.body.error_code;
       db.query('DELETE FROM first WHERE error_code =$1 ',[error_code], (err,table)=>{
         done();
-        if(err){
+        if(table.rowCount == 0){
           console.log(err);
-          response.status(400).send(err);
+          response.status(400).send({name: 'Data not found' });
         }
         else{
-          response.status(201).send({message: 'Data deleted'});
+          response.status(201).send({name: 'Data deleted'});
         }
       });
     }

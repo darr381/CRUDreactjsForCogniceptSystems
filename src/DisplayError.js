@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 //import 'bootstrap/dist/css/bootstrap.css';
+import FlashMessage from 'react-flash-message'
 
 class DisplayError extends Component{
 
@@ -8,7 +9,7 @@ class DisplayError extends Component{
     super(props)
     this.state={
       first: this.props.first.first.first[0]
-    }
+      }
   }
 
   render(){
@@ -22,38 +23,50 @@ class DisplayError extends Component{
        error_description = this.props.first.first.first[0].error_description//this.state.first.error_description
        robot_tags = this.props.first.first.first[0].robot_tags//this.state.first.robot_tags
     }
+
     // console.log(robot_tags.map(tags => {
     //   return tags
     // }))
     let tag ;
     if(this.props.first.first.first[0] != null){
       tag =
-            <table style={{marginLeft: '15vw',width: '60%'}}>
-              <tbody>
-                <tr>
-                  <td ><label> Error Code</label> </td>
-                  <td>{error_code} </td>
-                </tr>
-                <br/>
-                <tr>
-                  <td ><label> Error Type</label> </td>
-                  <td> {error_type} </td>
-                </tr>
-                <br/>
-                <tr>
-                  <td ><label> Error Description</label> </td>
-                  <td> {error_description} </td>
-                </tr>
-                <br/>
-                <tr>
-                  <td ><label> Robot Tags</label> </td>
-                  <td> {robot_tags.map((tags)=>{return(<div>{tags}</div>) })}</td>
-                </tr>
-              </tbody>
-            </table>
+      <div className='row'>
+        <div className='col-6'>
+          <div className='row'>
+            <div className='col-6'>
+              <label> Error Code</label>
+            </div>
+            <div className='col-6'>
+              <div> {error_code}</div>
+            </div>
+          </div><br/>
+          <div className='row'>
+            <div className='col-6'>
+              <label> Error Type</label>
+            </div>
+            <div className='col-6'>
+              {error_type}
+            </div>
+          </div><br/>
+          <div className='row'>
+            <div className='col-6'>
+              <label> Robot Tags</label>
+            </div>
+            <div className='col-6'>
+              {robot_tags.map((tags)=>{return(<div>{tags}</div>) })}
+            </div>
+          </div><br/>
+        </div>
+        <div className='col-6'>
+          <label> Error Description</label><br/>
+          {error_description}
+        </div>
+      </div>
     }
     else{
-      tag = <div> Error Code Does Not Exist</div>
+      tag = <FlashMessage duration={500}>
+            <strong style={{color: 'red'}}>Error Code Not Found</strong>
+      </FlashMessage>
     }
     return (
       <div>

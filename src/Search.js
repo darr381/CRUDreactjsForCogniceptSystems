@@ -8,7 +8,8 @@ class Search extends Component {
     super();
     this.state = {
       dataPresent: false ,
-      first: []
+      first: [],
+      key: 1
     }
   }
 
@@ -21,7 +22,7 @@ class Search extends Component {
       body: JSON.stringify(data)
     });
     fetch(request).then(response => response.json())
-    .then(data => {this.setState({first: data ,  dataPresent: true});console.log(data);}); //data is the data returned from app.get after converting the response to json
+    .then(data => {this.setState({first: data ,  dataPresent: true, key: this.state.key+1});}); //data is the data returned from app.get after converting the response to json
 
   }
   render() {
@@ -36,7 +37,7 @@ class Search extends Component {
               <PrimaryButton onClick={this.showTable.bind(this) } text='Show Record' />
             </div>
       </form>
-        <ShowError first={this.state}/>
+        <ShowError first={this.state} key={this.state.key}/>
       </div>
     )
   }
@@ -44,7 +45,6 @@ class Search extends Component {
 function ShowError(props){
   let dataPresent = props.first.dataPresent ? props.first.dataPresent : null
   if(dataPresent ){
-    console.log(props)
     return <DisplayError first={props}/>
   }
   return <div> </div>

@@ -22,10 +22,11 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+      <div class='wrapper'>
+        <img class='image--cover' src='./cognicept_icon.png'/>
+      </div>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
     <div class= 'row'>
       <div class='col-12' id="create"></div>
     </div>
@@ -41,3 +42,19 @@
     -->
   </body>
 </html>
+<style>
+.wrapper {
+  padding-top: 5px;
+  margin-left: 1150px;
+  position: absolute;
+}
+
+.image--cover {
+  width: 90px;
+  height: 50px;
+  border-radius: 0%;
+
+  object-fit: fill;
+  object-position: center;
+}
+</style>

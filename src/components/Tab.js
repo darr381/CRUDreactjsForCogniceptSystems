@@ -23,13 +23,15 @@ class Tab extends Component {
     } = this;
 
     let className = 'tab-list-item';
-
+    let style = {cursor: 'pointer'};
     if (activeTab === label) {
+      style = {cursor: 'default'}
       className += ' tab-list-active';
     }
 
     return (
       <li
+        style= {style}
         className={className}
         onClick={onClick}
       >
