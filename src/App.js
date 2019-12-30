@@ -7,9 +7,6 @@ import './components/Tab.css';
 import Update from './Update.js'
 import Delete from './Delete.js'
 import Search from './Search.js'
-import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
-import { InputText } from '@bit/primefaces.primereact.inputtext';
-import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
 import FlashMessage from 'react-flash-message'
 
 class App extends Component { //function App() {
@@ -63,7 +60,6 @@ class App extends Component { //function App() {
   render() {
     return (
       <div className='App'>
-      <PrimereactStyle />
       <div>
       <Tabs>
       <div label="New Error">
@@ -106,7 +102,7 @@ class App extends Component { //function App() {
         </div>
       </div>
       <div className='col-3' style={{marginLeft: "500px"}}>
-      <PrimaryButton onClick={this.addRow.bind(this) } text='Add Row' />
+      <button className='form-control' onClick={this.addRow.bind(this) }> Add Row </button>
       </div>
       </form>
       {/* <div className="d-inline-flex p-12">

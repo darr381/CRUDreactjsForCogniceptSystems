@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './App.css';
-import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
 import FlashMessage from 'react-flash-message'
 
 class Delete extends Component { //function App() {
@@ -139,13 +138,13 @@ class Delete extends Component { //function App() {
           <div className="d-inline-flex p-2">
             <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
           </div>
-          <div className='col-2' style={{marginLeft: "490px"}}>
-           <div className='row'>
+          <div className='col-2' style={{marginLeft: "400px"}}>
+           <div className='row' style={{width:'400px'}}>
             <div className='col-6'>
-              <PrimaryButton onClick={this.deleteRow.bind(this)} text='Delete Record' />
+              <button className='form-control' onClick={this.deleteRow.bind(this)}> Delete Record </button>
             </div>
             <div className='col-6'>
-              <PrimaryButton onClick={this.findRow.bind(this)} text='Find Record' />
+              <button className='form-control' onClick={this.findRow.bind(this)}> Find Record </button>
             </div>
            </div>
           </div>

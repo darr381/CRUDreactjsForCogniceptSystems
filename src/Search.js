@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 //import 'bootstrap/dist/css/bootstrap.css';
 import DisplayError from './DisplayError.js';
-import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
 
 class Search extends Component {
   constructor(){
@@ -34,7 +33,7 @@ class Search extends Component {
             <input type='text' ref="error_code_show" onClick={(e) => {e.target.value = ""}} className= 'form-control' placeholder="Error Code"/><br/>
             </div><br/><br/>
             <div className='col-2' style={{marginLeft: "535px"}}>
-              <PrimaryButton onClick={this.showTable.bind(this) } text='Show Record' />
+              <button className='form-control' onClick={this.showTable.bind(this) }> Show Record </button>
             </div>
       </form>
         <ShowError first={this.state} key={this.state.key}/>

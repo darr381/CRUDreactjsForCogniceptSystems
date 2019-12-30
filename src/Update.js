@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import { InputText } from '@bit/primefaces.primereact.inputtext';
-import PrimereactStyle from '@bit/primefaces.primereact.internal.stylelinks';
-import PrimaryButton, { LoadingTextButton, SuccessButton, DangerButton, RoundSpinnerButton } from '@bit/lekanmedia.shared-ui.primary-button';
 import FlashMessage from 'react-flash-message'
 
 class Update extends Component { //function App() {
@@ -102,7 +99,6 @@ class Update extends Component { //function App() {
 
     return(
       <div>
-        <PrimereactStyle/>
         <div className='row'>
           <div> <label style={{marginLeft: '550px'}}>Update Error</label> </div>
         </div>
@@ -114,14 +110,14 @@ class Update extends Component { //function App() {
                   <label> Error Code</label>
                 </div>
                 <div className='col-6'>
-                  <InputText type='text' onChange={e=>{this.setState({error_code: e.target.value})}} placeholder='Error Code' tooltip='Text' className='form-control' value={this.state.error_code} />
+                  <input type='text' onChange={e=>{this.setState({error_code: e.target.value})}} placeholder='Error Code' className='form-control' value={this.state.error_code} />
                   {flashMessage}
                 </div>
               </div>      {/*<input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> */}
               <div className='row'>
                 <div className='col-6'></div>
                 <div className='col-6'>
-                    <PrimaryButton style={{width: '170px'}} onClick={this.findRow.bind(this)} text='Find record'/>
+                    <button className='form-control' style={{width: '170px', marginLeft:'50px'}} onClick={this.findRow.bind(this)}>Find record </button>
                 </div>
               </div><br/>
               </form>
@@ -131,7 +127,7 @@ class Update extends Component { //function App() {
                   <label> Error Type</label>
                 </div>
                 <div className='col-6'>
-                  <InputText type='text' onChange={(e)=>{this.setState({error_type: e.target.value})}} placeholder='Error Type' tooltip='Conscise' className='form-control' value={this.state.error_type} />
+                  <input type='text' onChange={(e)=>{this.setState({error_type: e.target.value})}} placeholder='Error Type' className='form-control' value={this.state.error_type} />
                 </div>
               </div><br/>
               <div className='row'>
@@ -139,12 +135,12 @@ class Update extends Component { //function App() {
                   <label> Robot Tags</label>
                 </div>
                 <div className='col-6'>
-                  <InputText type='text' placeholder='Robot Tags' tooltip='Tag1 , Tag2 , Tag3' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control' value={this.state.robot_tags}/>
+                  <input type='text' placeholder='Robot Tags' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control' value={this.state.robot_tags}/>
                 </div>
               </div>
 
               <div className='col-6' style={{marginLeft: '330px',width:'190px'}}>
-              <PrimaryButton onClick={this.updateRow.bind(this)} text='Update record'/>
+              <button className='form-control' onClick={this.updateRow.bind(this)}> Update record </button>
               {update_results}
               </div>
               </form>
