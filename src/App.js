@@ -50,6 +50,10 @@ class App extends Component { //function App() {
         }
       });
     });
+    that.refs.error_code.value = ""
+    that.refs.robot_tags.value = ""
+    that.refs.error_type.value = ""
+    that.refs.error_description.value = ""
     this.setState({key: this.state.key+1})
   }
   changeTextarea(){

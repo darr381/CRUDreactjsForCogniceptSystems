@@ -31,7 +31,7 @@ class Search extends Component {
       <h1> Search Error </h1>
       <form>
             <div className="d-inline-flex p-2">
-            <input type='text' ref="error_code_show" className= 'form-control' placeholder="Error Code"/><br/>
+            <input type='text' ref="error_code_show" onClick={(e) => {e.target.value = ""}} className= 'form-control' placeholder="Error Code"/><br/>
             </div><br/><br/>
             <div className='col-2' style={{marginLeft: "535px"}}>
               <PrimaryButton onClick={this.showTable.bind(this) } text='Show Record' />

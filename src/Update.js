@@ -16,6 +16,7 @@ class Update extends Component { //function App() {
       error_description: "",
       robot_tags: "",
       isFound: true,
+      isUpdated: false,
       key: 1
     }
   }
@@ -25,7 +26,7 @@ class Update extends Component { //function App() {
       error_type: this.state.error_type,
       error_code: this.state.error_code,
       error_description: this.refs.error_description_update.value,
-      robot_tags: this.state.robot_tags,
+      robot_tags: this.state.robot_tags
     };
     var request = new Request('http://localhost:3200/public/update_row', {
       method: 'PATCH',
@@ -41,7 +42,8 @@ class Update extends Component { //function App() {
                    error_code: "",
                    error_type: "",
                    error_description: "",
-                   robot_tags: ""})
+                   robot_tags: "",
+                   isUpdated: true})
   this.refs.error_description_update.value = ""
   }
   findRow(event){
@@ -59,9 +61,11 @@ class Update extends Component { //function App() {
                                   error_type: data[0].error_type,
                                   error_description: data[0].error_description,
                                   robot_tags: data[0].robot_tags,
-                                  isFound: true});this.refs.error_description_update.value=data[0].error_description;}
+                                  isFound: true,
+                                  isUpdated: false
+                                  });this.refs.error_description_update.value=data[0].error_description;}
                                 else{
-                                  this.setState({isFound:false, key: this.state.key+1,first: [],
+                                  this.setState({isFound:false, key: this.state.key+1,first: [], isUpdated:false,
                                                  error_code: "",
                                                  error_type: "",
                                                  error_description: "",
@@ -75,7 +79,16 @@ class Update extends Component { //function App() {
     this.refs.error_description_update.style.height = this.refs.error_description_update.scrollHeight + 'px';
   }
   render() {
-     let flashMessage ;
+     let flashMessage ;let update_results;
+     if(this.state.isUpdated){
+       update_results =
+                 <FlashMessage duration={1000} key={this.state.key}>
+                   <strong style={{color: 'green'}}>Successfully Updated</strong>
+                 </FlashMessage>
+     }
+     else{
+       update_results=<div> </div>
+     }
     if(!this.state.isFound){
      flashMessage =
           <FlashMessage duration={1000} key={this.state.key}>
@@ -86,12 +99,16 @@ class Update extends Component { //function App() {
       flashMessage = <div></div>
     }
 
+
     return(
       <div>
         <PrimereactStyle/>
-        <form>
+        <div className='row'>
+          <div> <label style={{marginLeft: '550px'}}>Update Error</label> </div>
+        </div>
           <div className='row'>
             <div className='col-6'>
+            <form>
               <div className='row'>
                 <div className='col-6'>
                   <label> Error Code</label>
@@ -102,11 +119,13 @@ class Update extends Component { //function App() {
                 </div>
               </div>      {/*<input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> */}
               <div className='row'>
-              <div className='col-6'></div>
-                  <div className='col-6'>
-                  <PrimaryButton style={{width: '183.33px'}} onClick={this.findRow.bind(this)} text='Find record'/>
-                  </div>
+                <div className='col-6'></div>
+                <div className='col-6'>
+                    <PrimaryButton style={{width: '170px'}} onClick={this.findRow.bind(this)} text='Find record'/>
+                </div>
               </div><br/>
+              </form>
+              <form>
               <div className='row'>
                 <div className='col-6'>
                   <label> Error Type</label>
@@ -123,17 +142,18 @@ class Update extends Component { //function App() {
                   <InputText type='text' placeholder='Robot Tags' tooltip='Tag1 , Tag2 , Tag3' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control' value={this.state.robot_tags}/>
                 </div>
               </div>
+
+              <div className='col-6' style={{marginLeft: '330px',width:'190px'}}>
+              <PrimaryButton onClick={this.updateRow.bind(this)} text='Update record'/>
+              {update_results}
+              </div>
+              </form>
             </div>
             <div className='col-6'>
               <label> Error Description</label>
               <textArea ref='error_description_update' onChange={this.changeTextarea.bind(this)}className= 'form-control' placeholder="Error Description" value={this.state.error_description}/>
             </div>
           </div>
-
-          <div className='col-2' style={{marginLeft: '500px'}}>
-            <PrimaryButton onClick={this.updateRow.bind(this)} text='Update record'/>
-          </div>
-        </form>
       </div>
 
     );

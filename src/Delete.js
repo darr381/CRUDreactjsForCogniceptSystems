@@ -59,7 +59,7 @@ class Delete extends Component { //function App() {
                                   error_description: data[0].error_description,
                                   robot_tags: data[0].robot_tags,
                                   isFound: true,
-                                  key_deleted: this.state.key_deleted+1,
+                                  key_found: this.state.key_found+1,
                                   error_description: data[0].error_description});}
                                 else{
                                   this.setState({isFound:false,key_found: this.state.key_found+1,first: [],
@@ -137,7 +137,7 @@ class Delete extends Component { //function App() {
       <div>
         <h1> Delete Record</h1>
           <div className="d-inline-flex p-2">
-            <input type='text' ref="error_code_delete" className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
+            <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
           </div>
           <div className='col-2' style={{marginLeft: "535px"}}>
            <div className='row'>
