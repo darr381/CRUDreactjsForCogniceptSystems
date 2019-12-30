@@ -100,10 +100,8 @@ class App extends Component { //function App() {
           <br/><br/>
         </div>
         <div className='col-6'>
-          <div className='col-11'>
           <label> Error Description</label>
           <textArea style={{height: '200px'}} onChange={this.changeTextarea.bind(this)} ref='error_description' className= 'form-control ' placeholder="Error Description"/>
-          </div>
           <br/>
         </div>
       </div>

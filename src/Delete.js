@@ -87,36 +87,36 @@ class Delete extends Component { //function App() {
     else{
         found_results =
         <div className='row'>
-        <div className='col-6'>
-        <div className='row'>
-        <div className='col-6'>
-        <label> Error Code</label>
-        </div>
-        <div className='col-6'>
-        <div> {this.state.error_code}</div>
-        </div>
-        </div><br/>
-        <div className='row'>
-        <div className='col-6'>
-        <label> Error Type</label>
-        </div>
-        <div className='col-6'>
-        {this.state.error_type}
-        </div>
-        </div><br/>
-        <div className='row'>
-        <div className='col-6'>
-        <label> Robot Tags</label>
-        </div>
-        <div className='col-6'>
-        {this.state.robot_tags.map((tags)=>{return(<div>{tags}</div>) })}
-        </div>
-        </div><br/>
-        </div>
-        <div className='col-6'>
-        <label> Error Description</label><br/>
-        {this.state.error_description}
-        </div>
+          <div className='col-6'>
+            <div className='row'>
+              <div className='col-6'>
+              <label> Error Code</label>
+              </div>
+              <div className='col-6'>
+              <div> {this.state.error_code}</div>
+              </div>
+            </div><br/>
+            <div className='row'>
+              <div className='col-6'>
+              <label> Error Type</label>
+              </div>
+              <div className='col-6'>
+              {this.state.error_type}
+              </div>
+            </div><br/>
+            <div className='row'>
+              <div className='col-6'>
+              <label> Robot Tags</label>
+              </div>
+              <div className='col-6'>
+              {this.state.robot_tags.map((tags)=>{return(<div>{tags}</div>) })}
+              </div>
+            </div><br/>
+          </div>
+          <div className='col-6'>
+            <label> Error Description</label><br/>
+            {this.state.error_description}
+          </div>
         </div>
     }
     if(this.state.key_deleted == 1){
@@ -139,7 +139,7 @@ class Delete extends Component { //function App() {
           <div className="d-inline-flex p-2">
             <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
           </div>
-          <div className='col-2' style={{marginLeft: "535px"}}>
+          <div className='col-2' style={{marginLeft: "490px"}}>
            <div className='row'>
             <div className='col-6'>
               <PrimaryButton onClick={this.deleteRow.bind(this)} text='Delete Record' />
