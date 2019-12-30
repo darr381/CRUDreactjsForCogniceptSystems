@@ -164,7 +164,7 @@ class Delete extends Component { //function App() {
               <button className='form-control button' onClick={this.finalDelete} style={{backgroundColor:'#d9534f', color:'white'}}> Yes </button>
             </div>
             <div className='col-6'>
-              <button className='form-control button'> No </button>
+              <button className='form-control button' onClick={this.closeModal}> No </button>
             </div>
           </div>
         </div>
