@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import FlashMessage from 'react-flash-message'
 
 class Update extends Component { //function App() {

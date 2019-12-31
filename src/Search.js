@@ -30,12 +30,13 @@ class Search extends Component {
       <h1> Search Error </h1>
       <form>
             <div className="d-inline-flex p-2">
-            <input type='text' ref="error_code_show" onClick={(e) => {e.target.value = ""}} className= 'form-control' placeholder="Error Code"/><br/>
+            <input type='text' required ref="error_code_show" onClick={(e) => {e.target.value = ""}} className= 'form-control' placeholder="Error Code"/><br/>
             </div><br/><br/>
-            <div className='col-2' style={{marginLeft: "535px"}}>
+            <div className='col-2' style={{marginLeft: "490px"}}>
               <button className='form-control' onClick={this.showTable.bind(this) }> Show Record </button>
             </div>
       </form>
+        <br/>
         <ShowError first={this.state} key={this.state.key}/>
       </div>
     )

@@ -55,7 +55,7 @@ class Delete extends Component { //function App() {
         that.setState({isDeleted: false,showAlert: true, key_deleted: that.state.key_deleted+1})
       }
       else{
-        that.setState({isDeleted: true,showAlert:true,key_deleted: that.state.key_deleted+1})
+        that.setState({isDeleted: true,showAlert:true,key_deleted: that.state.key_deleted+1, key_found: 1, isFound: false})
       }});
     });
   }
@@ -140,7 +140,7 @@ class Delete extends Component { //function App() {
       delete_results = <div></div>
     }
     else if(this.state.isDeleted == false){
-      delete_results =<FlashMessage duration={1000} key={this.state.key_deleted}>
+      delete_results = <FlashMessage duration={1000} key={this.state.key_deleted}>
                      <strong style={{color: 'red'}}>Error Code Not Found</strong>
                      </FlashMessage>
     }
@@ -171,7 +171,7 @@ class Delete extends Component { //function App() {
       </Popup>
         <h1> Delete Record</h1>
           <div className="d-inline-flex p-2">
-            <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
+            <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""; this.setState({error_code: e.target.value})}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
           </div>
           <div className='col-2' style={{marginLeft: "400px"}}>
            <div className='row' style={{width:'400px'}}>
@@ -192,7 +192,6 @@ class Delete extends Component { //function App() {
   }
 }
 function HandleAert(props){
-  console.log(props.isDeleted)
   if(props.showAlert ){
     if(props.isDeleted)
     return(

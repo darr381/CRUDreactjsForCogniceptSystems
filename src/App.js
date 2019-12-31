@@ -16,13 +16,19 @@ class App extends Component { //function App() {
       first: [],
       isAdded: false,
       key: 1,
-      isRepeated: false
+      isRepeated: false,
+      isEmpty: false
     }
   }
 
   addRow(event){
-    let that = this;
     event.preventDefault();
+    let that = this;
+    console.log(this.refs.error_code.value);
+    if(this.refs.error_code.value === ""){
+        that.setState({isEmpty: true,key: this.state.key+1 ,isAdded: false,isRepeated:false})
+      return
+    }
     let data = {
       error_type: this.refs.error_type.value,
       error_code: this.refs.error_code.value,
@@ -37,13 +43,11 @@ class App extends Component { //function App() {
     //xmlHTTPrequest
     fetch(request).then(function(response){
       response.json().then(data => {
-        if(data.name =='error'){
-          that.setState({isAdded: false});
-          that.setState({isRepeated:true});
+        if(data.name === 'error'){
+          that.setState({isRepeated:true,isAdded: false});
         }
         else{
-          that.setState({isRepeated: false});
-          that.setState({isAdded: true});
+          that.setState({isAdded: true,isRepeated: false});
         }
       });
     });
@@ -72,7 +76,7 @@ class App extends Component { //function App() {
             <label> Error Code</label>
           </div>
           <div className='col-6'>
-            <input type='text' ref='error_code' className= 'form-control' placeholder="Error Code"/>
+            <input required type='text' ref='error_code' className= 'form-control' placeholder="Error Code"/>
           </div>
         </div>
         <br/><br/>
@@ -126,7 +130,7 @@ class App extends Component { //function App() {
       </Tabs>
       </div>
       <br/>
-      <HandleAert key={this.state.key} isAdded={this.state.isAdded} isRepeated={this.state.isRepeated}/>
+      <HandleAert key={this.state.key} isEmpty={this.state.isEmpty}isAdded={this.state.isAdded} isRepeated={this.state.isRepeated}/>
     </div>
 
     );
@@ -137,14 +141,21 @@ function HandleAert(props){
   if(props.isAdded ){
     return(
       <FlashMessage duration={1000}>
-            <strong style={{color: 'green'}}>Successfully Added</strong>
+        <strong style={{color: 'green'}}>Successfully Added</strong>
       </FlashMessage>
     )
   }
   else if (props.isRepeated) {
     return(
       <FlashMessage duration={1000}>
-            <strong style={{color: 'red'}}>Error Code Exists</strong>
+        <strong style={{color: 'red'}}>Error Code Exists</strong>
+      </FlashMessage>
+    )
+  }
+  else if(props.isEmpty){
+    return(
+      <FlashMessage duration={1000}>
+        <strong style={{color: 'red'}}> Error Code Field Cannot Be Empty </strong>
       </FlashMessage>
     )
   }
