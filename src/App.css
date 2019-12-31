@@ -12,10 +12,6 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-label{
-  font-weight: bold;
-  font-size: 30px;
-}
 td{
   font-size: 20px;
 }

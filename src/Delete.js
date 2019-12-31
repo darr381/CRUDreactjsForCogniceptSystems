@@ -3,6 +3,31 @@ import './Delete.css'
 import FlashMessage from 'react-flash-message'
 import Popup from "reactjs-popup";
 import ReactDOM from "react-dom";
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Fade,
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupText,
+  Label,
+  Row,
+} from 'reactstrap';
 
 class Delete extends Component { //function App() {
   constructor(){
@@ -52,7 +77,7 @@ class Delete extends Component { //function App() {
     fetch(request).then(function(response){
       response.json().then(function(data){
       if(data.name == 'Data not found'){
-        that.setState({isDeleted: false,showAlert: true, key_deleted: that.state.key_deleted+1})
+        that.setState({isDeleted: false,showAlert: true, key_deleted: that.state.key_deleted+1, key_found: 1, isFound: false})
       }
       else{
         that.setState({isDeleted: true,showAlert:true,key_deleted: that.state.key_deleted+1, key_found: 1, isFound: false})
@@ -76,6 +101,7 @@ class Delete extends Component { //function App() {
                                   error_description: data[0].error_description,
                                   robot_tags: data[0].robot_tags,
                                   isFound: true,
+                                  key_deleted: 1,
                                   key_found: this.state.key_found+1,
                                   error_description: data[0].error_description});}
                                 else{
@@ -84,7 +110,9 @@ class Delete extends Component { //function App() {
                                                  error_type: "",
                                                  error_description: "",
                                                  robot_tags: [],
-                                                error_description: ""})
+                                                 error_description: "",
+                                                 key_deleted: 1
+                                               })
                                 }
                                 }); //data is the data returned from app.get after converting the response to json
 
@@ -97,9 +125,9 @@ class Delete extends Component { //function App() {
       found_results = <div></div>
     }
     else if(this.state.isFound == false){
-      found_results = <FlashMessage duration={1000} key={this.state.key_found}>
-      <strong style={{color: 'red'}}>Error Code Not Found</strong>
-      </FlashMessage>
+      found_results = <div class="alert alert-danger" role="alert">
+                        Eror Code Does not exist
+                       </div>
     }
     else{
         found_results =
@@ -140,14 +168,14 @@ class Delete extends Component { //function App() {
       delete_results = <div></div>
     }
     else if(this.state.isDeleted == false){
-      delete_results = <FlashMessage duration={1000} key={this.state.key_deleted}>
-                     <strong style={{color: 'red'}}>Error Code Not Found</strong>
-                     </FlashMessage>
+      delete_results = <div class="alert alert-danger" role="alert">
+                        Eror Code Does not exist
+                       </div>
     }
     else{
-      delete_results = <FlashMessage duration={1000} key={this.state.key_deleted}>
-                      <strong style={{color: 'green'}}>Successfully Deleted</strong>
-                      </FlashMessage>
+      delete_results = <div class="alert alert-success" role="alert">
+                          Successfully Deleted
+                       </div>
     }
     return(
 
@@ -169,22 +197,34 @@ class Delete extends Component { //function App() {
           </div>
         </div>
       </Popup>
-        <h1> Delete Record</h1>
-          <div className="d-inline-flex p-2">
-            <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""; this.setState({error_code: e.target.value})}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
-          </div>
-          <div className='col-2' style={{marginLeft: "400px"}}>
-           <div className='row' style={{width:'400px'}}>
-            <div className='col-6'>
-            <button className='form-control button' onClick={this.openModal}> Delete Record </button>
+      <Col xs="12" md="10" style={{marginLeft: '8vw'}}>
+        <Card>
+          <CardHeader>
+            Delete Record
+          </CardHeader>
+          <CardBody>
+            <div className='row'>
+              <div className='col-4'>
+                <label> Error Code</label>
+              </div>
+              <div className='col-4'>
+                <input type='text' ref="error_code_delete" onClick={(e)=>{e.target.value=""; this.setState({error_code: e.target.value})}}className= 'form-control' placeholder="Error Code" onChange={e=>{this.setState({error_code: e.target.value})}}/><br/>
+              </div><br/>
+              <div className='col-3'>
+                <button className='btn btn-success btn-md' onClick={this.findRow.bind(this)}> Search </button>
+              </div>
+              <br/>
             </div>
-            <div className='col-6'>
-              <button className='form-control' onClick={this.findRow.bind(this)}> Find Record </button>
+            <div className='row mx-auto'>
+              <div className='col'>
+                <button className='btn btn-danger btn-md' onClick={this.openModal}> Delete </button>
+              </div>
             </div>
-           </div>
-          </div>
-          <br/>{found_results}{delete_results}<br/>
-        <br/><br/>
+            <br/>{found_results}{delete_results}<br/>
+          </CardBody>
+        </Card>
+      </Col>
+
         {/*<HandleAert key={this.state.key} showAlert={this.state.showAlert} isDeleted={this.state.isDeleted} /> */}
 
       </div>
@@ -195,12 +235,12 @@ function HandleAert(props){
   if(props.showAlert ){
     if(props.isDeleted)
     return(
-        <FlashMessage duration={500}>
+        <FlashMessage duration={2000}>
               <strong style={{color: 'green'}}>Successfully Deleted</strong>
         </FlashMessage>
     )
     else{
-      return (<FlashMessage duration={500}>
+      return (<FlashMessage duration={2000}>
             <strong style={{color: 'red'}}>Error Code Not Found</strong>
       </FlashMessage>)
     }

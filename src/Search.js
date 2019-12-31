@@ -1,6 +1,31 @@
 import React, {Component} from 'react';
 //import 'bootstrap/dist/css/bootstrap.css';
 import DisplayError from './DisplayError.js';
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Fade,
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupText,
+  Label,
+  Row,
+} from 'reactstrap';
 
 class Search extends Component {
   constructor(){
@@ -27,17 +52,30 @@ class Search extends Component {
   render() {
     return(
       <div>
-      <h1> Search Error </h1>
-      <form>
-            <div className="d-inline-flex p-2">
-            <input type='text' required ref="error_code_show" onClick={(e) => {e.target.value = ""}} className= 'form-control' placeholder="Error Code"/><br/>
-            </div><br/><br/>
-            <div className='col-2' style={{marginLeft: "490px"}}>
-              <button className='form-control' onClick={this.showTable.bind(this) }> Show Record </button>
-            </div>
-      </form>
-        <br/>
-        <ShowError first={this.state} key={this.state.key}/>
+      <Col xs="12" md="10" style={{marginLeft: '8vw'}}>
+        <Card>
+          <CardHeader>
+            Search Error
+          </CardHeader>
+          <CardBody>
+            <form>
+              <div className='row'>
+                <div className='col-4'>
+                  <label> Error Code</label>
+                </div>
+                <div className="col-4">
+                  <input type='text' ref="error_code_show" onClick={(e) => {e.target.value = ""}} className= 'form-control' placeholder="Error Code"/><br/>
+                </div>
+                <div className='col-2'>
+                  <button className='btn btn-success btn-sm' onClick={this.showTable.bind(this) }> Show Record </button>
+                </div>
+              </div>
+            </form>
+            <br/>
+            <ShowError first={this.state} key={this.state.key}/>
+          </CardBody>
+        </Card>
+      </Col>
       </div>
     )
   }

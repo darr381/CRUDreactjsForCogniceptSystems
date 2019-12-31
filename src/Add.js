@@ -1,13 +1,10 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 //import 'bootstrap/dist/css/bootstrap.css';
 import Tabs from './components/Tabs';
-import './components/Tab.css';
 import Update from './Update.js'
 import Delete from './Delete.js'
 import Search from './Search.js'
-import Add from './Add.js'
 import FlashMessage from 'react-flash-message'
 import {
   Badge,
@@ -35,7 +32,7 @@ import {
   Row,
 } from 'reactstrap';
 
-class App extends Component { //function App() {
+class Add extends Component { //function App() {
   constructor(){
     super();
     this.state = {
@@ -83,31 +80,62 @@ class App extends Component { //function App() {
     that.refs.error_description.value = ""
     this.setState({key: this.state.key+1})
   }
-  changeTextarea(){
-    this.refs.error_description.style.height = 'auto';
-    this.refs.error_description.style.height = this.refs.error_description.scrollHeight + 'px';
-  }
+  // changeTextarea(){
+  //   this.refs.error_description.style.height = 'auto';
+  //   this.refs.error_description.style.height = this.refs.error_description.scrollHeight + 'px';
+  // }
   render() {
     return (
-      <div className='App'>
-      <Tabs>
-      <div label="New Error">
-        <Add />
-      </div>
-      <div label="Search Error">
-        <Search />
-      </div>
-      <div label="Update Error">
-          <Update />
-      </div>
-      <div label="Delete Error">
-        <Delete />
-      </div>
-      </Tabs>
-      <br/>
-    </div>
-
-    );
+      <Col xs="12" md="10" style={{marginLeft: '8vw'}}>
+        <Card>
+          <CardHeader>
+            Add New Error
+          </CardHeader>
+          <CardBody>
+          <form>
+          <div className='row'>
+            <div className='col-6'>
+            <div className='row'>
+              <div className='col-6'>
+                <label> Error Code</label>
+              </div>
+              <div className='col-6'>
+                <input required type='text' ref='error_code' className= 'form-control' placeholder="Error Code"/>
+              </div>
+            </div>
+            <br/><br/>
+            <div className='row'>
+              <div className='col-6'>
+                <label> Error Type</label>
+              </div>
+              <div className='col-6'>
+                <input type='text' ref='error_type' className= 'form-control' placeholder="Error Type"/>
+              </div>
+            </div>
+              <br/><br/>
+              <div className='row'>
+                <div className='col-6'>
+                <label> Robot Tags</label>
+                </div>
+                <div className='col-6'>
+                <input  type='text' ref='robot_tags' className= 'form-control' placeholder="Robot Tags"/>
+                </div>
+              </div>
+              <br/><br/>
+            </div>
+            <div className='col-6'>
+              <label> Error Description</label>
+              <textArea style={{height: '200px'}} ref='error_description' className= 'form-control ' placeholder="Error Description"/>
+              <br/>
+            </div>
+          </div>
+            <button className='btn btn-success btn-xl' onClick={this.addRow.bind(this) }> Submit </button>
+          </form><br/>
+          <HandleAert key={this.state.key} isEmpty={this.state.isEmpty}isAdded={this.state.isAdded} isRepeated={this.state.isRepeated}/>
+          </CardBody>
+        </Card>
+      </Col>
+    )
   }
 }
 function HandleAert(props){
@@ -129,4 +157,4 @@ function HandleAert(props){
   }
   return <div> </div>
 }
-export default App;
+export default Add;

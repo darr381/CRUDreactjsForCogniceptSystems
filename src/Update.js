@@ -1,7 +1,32 @@
 import React, {Component} from 'react';
 import './App.css';
-// import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import FlashMessage from 'react-flash-message'
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Fade,
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupText,
+  Label,
+  Row,
+} from 'reactstrap';
 
 class Update extends Component { //function App() {
   constructor(){
@@ -19,6 +44,7 @@ class Update extends Component { //function App() {
   }
   updateRow (event){
     event.preventDefault();
+    let that = this;
     let data = {
       error_type: this.state.error_type,
       error_code: this.state.error_code,
@@ -33,14 +59,22 @@ class Update extends Component { //function App() {
     //xmlHTTPrequest
     fetch(request).then(function(response){
       response.json().then(function(data){
+        console.log(data)
+          if(data.message =="Update Failed"){
+            that.setState({isUpdated: false,key: that.state.key+1});
+          }
+          else{
+            that.setState({isUpdated: true, key: that.state.key+1});
+          }
       });
     });
     this.setState({first: [],
                    error_code: "",
+                   original_error_code:"",
                    error_type: "",
                    error_description: "",
                    robot_tags: "",
-                   isUpdated: true})
+                   })
   this.refs.error_description_update.value = ""
   }
   findRow(event){
@@ -71,26 +105,32 @@ class Update extends Component { //function App() {
                                 }); //data is the data returned from app.get after converting the response to json
 
   }
-  changeTextarea(){
-    this.refs.error_description_update.style.height = 'auto';
-    this.refs.error_description_update.style.height = this.refs.error_description_update.scrollHeight + 'px';
-  }
+  // changeTextarea(){
+  //   this.refs.error_description_update.style.height = 'auto';
+  //   this.refs.error_description_update.style.height = this.refs.error_description_update.scrollHeight + 'px';
+  // }
   render() {
      let flashMessage ;let update_results;
-     if(this.state.isUpdated){
+     if(this.state.key == 1){
+       update_results = <div></div>
+     }
+     else if(this.state.isUpdated){
        update_results =
-                 <FlashMessage duration={1000} key={this.state.key}>
-                   <strong style={{color: 'green'}}>Successfully Updated</strong>
-                 </FlashMessage>
+                        <div class="alert alert-success" role="alert">
+                          Successfully Update
+                        </div>
      }
      else{
-       update_results=<div> </div>
+       update_results=
+                       <div class="alert alert-danger" role="alert">
+                         Failed To Update
+                       </div>
      }
     if(!this.state.isFound){
      flashMessage =
-          <FlashMessage duration={1000} key={this.state.key}>
-            <strong style={{color: 'red'}}>Error Code Not Found</strong>
-          </FlashMessage>
+                    <div class="alert alert-danger" role="alert">
+                      Eror Code Does not exist
+                    </div>
     }
     else{
       flashMessage = <div></div>
@@ -99,29 +139,37 @@ class Update extends Component { //function App() {
 
     return(
       <div>
-        <div className='row'>
-          <div> <label style={{marginLeft: '550px'}}>Update Error</label> </div>
-        </div>
-          <div className='row'>
-            <div className='col-6'>
+      <Col xs="12" md="10" style={{marginLeft: '8vw'}}>
+        <Card>
+          <CardHeader>
+            Find Error
+          </CardHeader>
+            <CardBody>
+              <form >
+                <div className='row'>
+                  <div className='col-4'>
+                    <label> Error Code</label>
+                  </div>
+                  <div className='col-4'>
+                    <input type='text' onChange={e=>{this.setState({error_code: e.target.value})}} placeholder='Error Code' className='form-control' value={this.state.error_code} />
+                  </div><br/>
+                  <div className='col-3'>
+                    <button className='btn btn-success btn-md'  onClick={this.findRow.bind(this)}>Search </button>
+                  </div>
+                  <br/>
+                </div>
+              </form><br/><br/>
+              {flashMessage}
+            </CardBody>
+        </Card>
+      </Col>
+      <Col xs="12" md="10" style={{marginLeft: '8vw'}}>
+        <Card>
+          <CardHeader>
+            <strong>Update</strong>
+          </CardHeader>
+          <CardBody>
             <form>
-              <div className='row'>
-                <div className='col-6'>
-                  <label> Error Code</label>
-                </div>
-                <div className='col-6'>
-                  <input type='text' onChange={e=>{this.setState({error_code: e.target.value})}} placeholder='Error Code' className='form-control' value={this.state.error_code} />
-                  {flashMessage}
-                </div>
-              </div>      {/*<input type='text' ref='error_code_update' className= 'form-control' placeholder="Error Type"/> */}
-              <div className='row'>
-                <div className='col-6'></div>
-                <div className='col-6'>
-                    <button className='form-control' style={{width: '170px', marginLeft:'50px'}} onClick={this.findRow.bind(this)}>Find record </button>
-                </div>
-              </div><br/>
-              </form>
-              <form>
               <div className='row'>
                 <div className='col-6'>
                   <label> Error Type</label>
@@ -137,19 +185,24 @@ class Update extends Component { //function App() {
                 <div className='col-6'>
                   <input type='text' placeholder='Robot Tags' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control' value={this.state.robot_tags}/>
                 </div>
-              </div>
-
+              </div><br/>
+              <div className='row'>
+                <div className='col-6'>
+                  <label> Error Description</label>
+                </div>
+                <div className='col-6'>
+                  <textArea ref='error_description_update' className= 'form-control' placeholder="Error Description" value={this.state.error_description}/>
+                </div>
+              </div><br/>
               <div className='col-6' style={{marginLeft: '330px',width:'190px'}}>
-              <button className='form-control' onClick={this.updateRow.bind(this)}> Update record </button>
-              {update_results}
+                <button className='btn btn-success btn-md' onClick={this.updateRow.bind(this)}> Submit </button><br/><br/>
               </div>
+              {update_results}
               </form>
-            </div>
-            <div className='col-6'>
-              <label> Error Description</label>
-              <textArea ref='error_description_update' onChange={this.changeTextarea.bind(this)}className= 'form-control' placeholder="Error Description" value={this.state.error_description}/>
-            </div>
-          </div>
+
+              </CardBody>
+            </Card>
+          </Col>
       </div>
 
     );

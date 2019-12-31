@@ -1,6 +1,31 @@
 import React, {Component} from 'react'
 //import 'bootstrap/dist/css/bootstrap.css';
 import FlashMessage from 'react-flash-message'
+import {
+  Badge,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Col,
+  Collapse,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Fade,
+  Form,
+  FormGroup,
+  FormText,
+  FormFeedback,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButtonDropdown,
+  InputGroupText,
+  Label,
+  Row,
+} from 'reactstrap';
 
 class DisplayError extends Component{
 
@@ -64,9 +89,10 @@ class DisplayError extends Component{
       </div>
     }
     else{
-      tag = <FlashMessage duration={500}>
-            <strong style={{color: 'red'}}>Error Code Not Found</strong>
-      </FlashMessage>
+      tag =
+            <div class="alert alert-danger" role="alert">
+              Eror Code Does not exist
+            </div>
     }
     return (
       <div>
