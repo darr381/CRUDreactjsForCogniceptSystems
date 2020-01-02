@@ -1,29 +1,21 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
+# Intro #
+* CRUD for error details
+* Using postgresql, reactjs, react libraries and bootstrap.
 ### How do I get set up? ###
-
 * Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Enter directory of project in CMD then Run npm start and node server.js in 2 separater cmd
+## Database structure ##
 
-### Contribution guidelines ###
+## Architecture Diagram##
+![Architecture Diagram](./architecture_diagram.PNG)
+* 6 columns
+* error_type: string
+* error_description: string
+* robot_tags: string
+* resolution: timestamp without time zone
+* error_code: string (PK) no duplicates and null allowed.
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+## Wireframe ##
+![Architecture Diagram](./WireFrame.PNG)
