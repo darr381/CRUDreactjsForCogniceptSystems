@@ -45,9 +45,8 @@ class Search extends Component {
       headers: new Headers({'Content-Type': 'application/json' , 'Accept': 'application/json'}),
       body: JSON.stringify(data)
     });
-    fetch(request).then(response => response.json())
-    .then(data => {this.setState({first: data ,  dataPresent: true, key: this.state.key+1});}); //data is the data returned from app.get after converting the response to json
-
+    fetch(request).then(response => {response.json()
+    .then(data => {this.setState({first: data ,  dataPresent: true, key: this.state.key+1});})}); //data is the data returned from app.get after converting the response to json
   }
   render() {
     return(

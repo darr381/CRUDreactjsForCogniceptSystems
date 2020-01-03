@@ -51,6 +51,29 @@ app.use(function(request,response,next){
   response.header("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept ");
   next();
 });
+app.get('/public/show_database',function(request,response){
+  pool.connect(function(err,db,done){
+    if(err){
+      console.log('err in first if')
+      return response.status(400).send(err);
+    }
+    else{
+      console.log('in first else')
+      db.query("SELECT * FROM first" , function(err,table){
+        done();
+        if(err){
+          console.log('in 2nd if')
+          return resposne.status(400).send(err);
+        }
+        else{
+          console.log('in 2nd else')
+          console.log(table.rows)
+          return response.status(200).send(table.rows);
+        }
+      });
+    }
+  });
+})
 app.post('/public/table_data', function(request, response){
   pool.connect(function(err,db,done){
     if(err){
@@ -58,7 +81,6 @@ app.post('/public/table_data', function(request, response){
     }
     else{
       let error_code = request.body.error_code
-      console.log(error_code)
       db.query("SELECT * FROM first where error_code ILIKE $1",[error_code], function(err,table){
         done();
         if(err){
@@ -104,10 +126,6 @@ app.patch('/public/update_row', function(request, response){
       var robot_tags = '{' + request.body.robot_tags + '}';
       db.query('UPDATE first SET error_type = $1 ,error_description = $2 ,robot_tags =$3 WHERE error_code ILIKE $4 ',[error_type, error_description,robot_tags,error_code]
     , (err,table) => {
-      console.log("err in update")
-      console.log(err)
-      console.log("returned table of update")
-      console.log(table)
       done();
       if(table.rowCount == 0){
         console.log('update failed')
