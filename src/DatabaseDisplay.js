@@ -9,17 +9,17 @@ class DatabaseDisplay extends Component {
        this.state= {
           columnDefs: [
             {
-              headerName: "Error Code", field: "error_code"
+              headerName: "Error Code", field: "error_code", sortable: true
             }, {
-              headerName: "Error Type", field: "error_type"
+              headerName: "Error Type", field: "error_type", sortable: true
             }, {
-              headerName: "Error Description", field: "Error Description"
+              headerName: "Error Description", field: "Error Description", sortable: true
             } , {
-              headerName: "Robot Tags", field: "robot_tags"
+              headerName: "Robot Tags", field: "robot_tags", sortable: true
             } , {
-              headerName: "resolution" , field: "resolution"
+              headerName: "resolution" , field: "resolution", sortable: true
             } , {
-              headerName: "uuid" , field: "uuid"
+              headerName: "uuid" , field: "uuid", sortable: true
             }
           ],
           rowData: []
