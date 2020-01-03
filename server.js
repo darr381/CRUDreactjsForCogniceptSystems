@@ -59,7 +59,7 @@ app.get('/public/show_database',function(request,response){
     }
     else{
       console.log('in first else')
-      db.query("SELECT * FROM first" , function(err,table){
+      db.query("SELECT robot_tags, error_code,error_type,error_description,to_char(resolution, 'Day , Month DD,  HH12:MI PM') resolution FROM first;" , function(err,table){
         done();
         if(err){
           console.log('in 2nd if')

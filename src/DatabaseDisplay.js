@@ -9,17 +9,15 @@ class DatabaseDisplay extends Component {
        this.state= {
           columnDefs: [
             {
-              headerName: "Error Code", field: "error_code", sortable: true
+              headerName: "Error Code", field: "error_code", sortable: true , filter: true, resizable: true
             }, {
-              headerName: "Error Type", field: "error_type", sortable: true
+              headerName: "Error Type", field: "error_type", sortable: true, filter: true, resizable: true
             }, {
-              headerName: "Error Description", field: "Error Description", sortable: true
+              headerName: "Error Description", field: "error_description", sortable: true, filter: true, resizable: true
             } , {
-              headerName: "Robot Tags", field: "robot_tags", sortable: true
+              headerName: "Robot Tags", field: "robot_tags", sortable: true, filter: true, resizable: true
             } , {
-              headerName: "resolution" , field: "resolution", sortable: true
-            } , {
-              headerName: "uuid" , field: "uuid", sortable: true
+              headerName: "resolution" , field: "resolution", sortable: true, filter: true, resizable: true,width: 220
             }
           ],
           rowData: []
@@ -39,7 +37,8 @@ class DatabaseDisplay extends Component {
        className="ag-theme-balham"
        style={{
        height: '400px',
-       width: '805px' }}>
+       width: '80%' ,
+        marginLeft: '100px'}}>
        <AgGridReact
          columnDefs={this.state.columnDefs}
          rowData={this.state.rowData}>

@@ -8,6 +8,7 @@ import Update from './Update.js'
 import Delete from './Delete.js'
 import Search from './Search.js'
 import Add from './Add.js'
+import DatabaseDisplay from './DatabaseDisplay.js'
 import FlashMessage from 'react-flash-message'
 import {
   Badge,
@@ -62,6 +63,9 @@ class App extends Component { //function App() {
       </div>
       <div label="Delete Error">
         <Delete />
+      </div>
+      <div label='Databse Display' style = {{}}>
+        <DatabaseDisplay />
       </div>
       </Tabs>
       <br/>
