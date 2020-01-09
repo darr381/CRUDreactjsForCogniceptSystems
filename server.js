@@ -54,19 +54,15 @@ app.use(function(request,response,next){
 app.get('/public/show_database',function(request,response){
   pool.connect(function(err,db,done){
     if(err){
-      console.log('err in first if')
       return response.status(400).send(err);
     }
     else{
-      console.log('in first else')
-      db.query("SELECT robot_tags, error_code,error_type,error_description,to_char(resolution, 'Day , Month DD,  HH12:MI PM') resolution FROM first;" , function(err,table){
+      db.query("SELECT robot_tags, error_code,error_type,error_description,to_char(resolution at time zone 'Asia/Singapore', 'Day , Month DD,  HH12:MI PM') resolution FROM first;" , function(err,table){
         done();
         if(err){
-          console.log('in 2nd if')
           return resposne.status(400).send(err);
         }
         else{
-          console.log('in 2nd else')
           console.log(table.rows)
           return response.status(200).send(table.rows);
         }
@@ -93,8 +89,27 @@ app.post('/public/table_data', function(request, response){
     }
   });
 })
+app.post('/public/get_row', function(request, response){
+  pool.connect(function(err,db,done){
+    if(err){
+      return response.status(400).send(err);
+    }
+    else{
+      console.log('entered get_row')
+      let error_code = request.body.error_code
+      db.query("SELECT robot_tags, error_code,error_type,error_description,to_char(resolution at time zone 'Asia/Singapore', 'Day , Month DD,  HH12:MI PM') resolution FROM first where error_code ILIKE $1;",[error_code], function(err,table){
+        done();
+        if(err){
+          return response.status(400).send(err);
+        }
+        else{
+          return response.status(200).send(table.rows);
+        }
+      });
+    }
+  });
+})
 app.delete('/public/delete_row',function(request,response){
-  console.log('app.delete entered');
   pool.connect((err,db,done)=>{
     if(err){
       return console.log(err);
@@ -133,6 +148,30 @@ app.patch('/public/update_row', function(request, response){
       }
       else{
         console.log('data updated');
+        response.status(201).send({message: 'Data updated'});
+      }
+    });
+    }
+  });
+});
+app.patch('/public/update_database', function(request, response){
+  pool.connect((err,db,done) => {
+    if(err){
+      return console.log(err);
+    }
+    else{
+      var error_code = request.body.error_code
+      var error_type = request.body.error_type;
+      var error_description = request.body.error_description;
+      var robot_tags = '{' + request.body.robot_tags + '}';
+      db.query('UPDATE first SET error_type = $1 ,error_description = $2 ,robot_tags =$3 WHERE error_code ILIKE $4 ',[error_type, error_description,robot_tags,error_code]
+    , (err,table) => {
+      done();
+      if(table.rowCount == 0){
+        console.log('update failed')
+        response.status(400).send({message:"Update Failed"});
+      }
+      else{
         response.status(201).send({message: 'Data updated'});
       }
     });

@@ -38,7 +38,7 @@ class Update extends Component { //function App() {
       error_description: "",
       robot_tags: "",
       isFound: true,
-      isUpdated: false,
+      isUpdated: "false",
       key: 1
     }
   }
@@ -61,10 +61,10 @@ class Update extends Component { //function App() {
       response.json().then(function(data){
         console.log(data)
           if(data.message =="Update Failed"){
-            that.setState({isUpdated: false,key: that.state.key+1});
+            that.setState({isUpdated: "failed",key: that.state.key+1});
           }
           else{
-            that.setState({isUpdated: true, key: that.state.key+1});
+            that.setState({isUpdated: "true", key: that.state.key+1});
           }
       });
     });
@@ -93,7 +93,7 @@ class Update extends Component { //function App() {
                                   error_description: data[0].error_description,
                                   robot_tags: data[0].robot_tags,
                                   isFound: true,
-                                  isUpdated: false
+                                  isUpdated: "false"
                                   });this.refs.error_description_update.value=data[0].error_description;}
                                 else{
                                   this.setState({isFound:false, key: this.state.key+1,first: [], isUpdated:false,
@@ -111,16 +111,16 @@ class Update extends Component { //function App() {
   // }
   render() {
      let flashMessage ;let update_results;
-     if(this.state.key == 1){
+     if(this.state.isUpdated=="false"){
        update_results = <div></div>
      }
-     else if(this.state.isUpdated){
+     else if(this.state.isUpdated == "true"){
        update_results =
                         <div class="alert alert-success" role="alert">
                           Successfully Update
                         </div>
      }
-     else{
+     else if(this.state.isUpdated=="failed"){
        update_results=
                        <div class="alert alert-danger" role="alert">
                          Failed To Update
@@ -183,7 +183,7 @@ class Update extends Component { //function App() {
                   <label> Robot Tags</label>
                 </div>
                 <div className='col-6'>
-                  <input type='text' placeholder='Robot Tags' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control' value={this.state.robot_tags}/>
+                  <input type='text' placeholder='tag1,tag2,tag3...' onChange={(e)=>{this.setState({robot_tags: e.target.value})}} className='form-control' value={this.state.robot_tags}/>
                 </div>
               </div><br/>
               <div className='row'>
@@ -191,7 +191,7 @@ class Update extends Component { //function App() {
                   <label> Error Description</label>
                 </div>
                 <div className='col-6'>
-                  <textArea ref='error_description_update' className= 'form-control' placeholder="Error Description" value={this.state.error_description}/>
+                  <textarea ref='error_description_update' className= 'form-control' placeholder="Error Description" value={this.state.error_description} onChange={(e)=>{this.setState({error_description:e.target.value})}}/>
                 </div>
               </div><br/>
               <div className='col-6' style={{marginLeft: '330px',width:'190px'}}>

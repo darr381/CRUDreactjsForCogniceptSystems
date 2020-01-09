@@ -189,10 +189,10 @@ class Delete extends Component { //function App() {
           </div><br/><br/>
           <div className='row'>
             <div className='col-6'>
-              <button className='form-control button' onClick={this.finalDelete} style={{backgroundColor:'#d9534f', color:'white'}}> Yes </button>
+              <button className='btn btn-danger' onClick={this.finalDelete} > Delete </button>
             </div>
             <div className='col-6'>
-              <button className='form-control button' onClick={this.closeModal}> No </button>
+              <button className='btn btn-success' onClick={this.closeModal}> Cancle </button>
             </div>
           </div>
         </div>

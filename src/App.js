@@ -64,7 +64,7 @@ class App extends Component { //function App() {
       <div label="Delete Error">
         <Delete />
       </div>
-      <div label='Databse Display' style = {{}}>
+      <div label='Database Display' style = {{}}>
         <DatabaseDisplay />
       </div>
       </Tabs>

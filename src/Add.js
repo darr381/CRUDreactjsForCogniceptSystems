@@ -125,7 +125,7 @@ class Add extends Component { //function App() {
             </div>
             <div className='col-6'>
               <label> Error Description</label>
-              <textArea style={{height: '200px'}} ref='error_description' className= 'form-control ' placeholder="Error Description"/>
+              <textarea style={{height: '200px'}} ref='error_description' className= 'form-control ' placeholder="Error Description"/>
               <br/>
             </div>
           </div>
