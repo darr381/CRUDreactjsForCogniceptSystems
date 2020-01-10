@@ -8,7 +8,8 @@
 * Search.js uses findRow(event) to send a post request to server.js which then communicates with the database
 * Update.js uses updateRow(event) to send a patch request to server.js which then communicates with the database
 * Delete.js uses deleteRow(event) to send a delete request to server.js which then communicates with the database
-* Using postgresql, reactjs, and bootstrap.
+* DatabaseDisplay.js makes multiple calls to the database 
+* Using postgresql, reactjs(frontend), node.js and express.js(backend), and bootstrap.
 * extra react libraries include : react-flash-message , reactstrap, react-file-reader, reactjs-popup,react-flash-message, ag-grid-react,csvtojson
 
 
@@ -34,7 +35,7 @@
 * Database.js filter input requires " " to recognise a robot tag, do not put " " to filter via error_code
 * ag-grid is controlled by this.state.rowData , change rowData will rerender ag-grid.
 * Queries made to the database that retrieves resolution must include timezone in query see file for example.
-* GET queries are faster than UPDATE queries so I used setTimeout() to ensure proper update of database before issuing a GET request
+* GET queries are faster than UPDATE queries so setTimeout() is used  in GET requests to ensure proper update of database before issuing a GET request
 * execel file uploaded must be in CSV format comma delimited.
 * CSV file must contain columns headers labelled as "Error Code" , "Error Type","Robot Tags","Error Description"
 * Search Error window uses data from the ag-grid to populate it. Except when rowNode is updated. Because resolution is determiend by the database, a call back to the database must be made to retrieve updates
@@ -44,6 +45,7 @@
 * All flash messages persist until new calls are made or when the tab is switched
 * flash messages are controlled by boolean values or strings to obtain tristate values see updatel.js for example
 * CRUD is made such that Error Code cannot be modified.
+* ag-grid documentation (https://www.ag-grid.com/documentation-main/documentation.php)
 
 ### Database table structure ###
 | Column Name     | Data Type    |
