@@ -17,7 +17,7 @@
 ### How do I get set up? ###
 * Open 2 cmd, enter into the directory of the project in both cmd.
 * Run npm start and node server.js in the 2 separate cmd
-* npm start will start the website on localhost:3200
+* npm start will start the CRUD application on localhost:3200
 * node server.js will establish connection to postgresql database.
 * run pgAdmin 4 for a direct interface with the database
 
