@@ -51,7 +51,7 @@ class DatabaseDisplay extends Component {
             } , {
               headerName: "Robot Tags", field: "robot_tags", sortable: true, filter: true,width:150
             } , {
-              headerName: "timestamp" , field: "resolution", sortable: true, filter: true,width:150
+              headerName: "timestamp" , field: "resolution", sortable: true, filter: true,width:150, comparator: timestampComparator,resizable:true
             }
           ],
           newColumns: [],
@@ -430,6 +430,122 @@ function Preview (props){
   else{
     return <div></div>
   }
+}
+function timestampComparator(resolution1,resolution2){
+    //
+    // var resolutionArray1;var dateArray1;var month1;var date1;var time1;var pmAm1;
+    // var resolutionArray2;var dateArray2;var month2;var date2;var time2;var pmAm2;
+    //   resolutionArray1 = timestamp1.split(',')
+    //   dateArray1 = resolutionArray1[1].split(' ')
+    //   month1 = dateArray1[1]
+    //   date1 = dateArray1[dateArray1.length-1]
+    //   time1 = resolutionArray1[resolutionArray1.length-1]
+    //   pmAm1 = time1.split(' ')[3]
+    //
+    //   resolutionArray2 = timestamp2.split(',')
+    //   dateArray2 = resolutionArray2[1].split(' ')
+    //   month2 = dateArray2[1]
+    //   date2 = dateArray2[dateArray2.length-1]
+    //   time2 = resolutionArray2[resolutionArray2.length-1]
+    //   pmAm2 = time2.split(' ')[3]
+  var timestamp1 = toComparableValue(resolution1);
+  var timestamp2 = toComparableValue(resolution2);
+
+  if((timestamp1 === null || timestamp1 === "" || timestamp1 === undefined)&&(timestamp2 === null || timestamp2 === "" || timestamp2 === undefined)){
+    console.log('no comparisons')
+    return 0;
+  }
+  if(timestamp1 === null || timestamp1 === "" || timestamp1 === undefined){
+    console.log('no comparisons')
+    return -1;
+  }
+  if(timestamp2 === null || timestamp2 === "" || timestamp2 === undefined){
+    console.log('no comparisons')
+    return 1;
+  }
+  if(timestamp1[0] == timestamp2[0]){
+    if(timestamp1[1] == timestamp2[1]){
+      if(timestamp1[3]==timestamp2[3]){
+        if(timestamp1[2] == timestamp2[2]){
+          console.log('')
+          return 0;
+        }
+        else if(timestamp1[2]>timestamp2[2]){
+          console.log('')
+          return 1;
+        }
+        else {
+          console.log('')
+          return -1;
+        }
+      }
+      else if(timestamp1[3] > timestamp2[3]){
+        console.log('')
+        return 1;
+      }
+      else{
+        console.log('')
+        return -1;
+      }
+    }
+    else if(timestamp1[1]> timestamp2[1]){
+      console.log('')
+      return 1;
+    }
+    else{
+      console.log('')
+      return -1;
+    }
+  }
+  else if(timestamp1[0]>timestamp2[0] ){
+    console.log('')
+    return 1;
+  }
+  else{
+    console.log('')
+    return -1;
+  }
+}
+function toComparableValue(resolution){
+
+  var resolutionArray = resolution.split(',')
+  var dateArray = resolutionArray[1].split(' ')
+  var month = dateArray[1]
+  var date = dateArray[dateArray.length-1]
+  var timeArray = resolutionArray[resolutionArray.length-1]
+  var time = timeArray.split(' ')[2]
+  var pmAm = timeArray.split(' ')[3]
+  var returnArray = [];
+  switch(month.toUpperCase()){
+    case 'JANUARY': returnArray.push(1)
+                    break;
+    case 'FEBUARY': returnArray.push(2)
+                    break;
+    case 'MARCH': returnArray.push(3)
+                    break;
+    case 'APRIL': returnArray.push(4)
+                    break;
+    case 'MAY': returnArray.push(5)
+                    break;
+    case 'JUNE': returnArray.push(6)
+                    break;
+    case 'JULY': returnArray.push(7)
+                    break;
+    case 'AUGUST': returnArray.push(8)
+                    break;
+    case 'SEPTEMBER': returnArray.push(9)
+                    break;
+    case 'OCTOBER': returnArray.push(10)
+                    break;
+    case 'NOVEMBER': returnArray.push(11)
+                    break;
+    case 'DECEMBER': returnArray.push(12)
+                    break;
+  }
+  returnArray.push(parseInt(date,10));
+  returnArray.push(time)
+  returnArray.push(pmAm)
+  return returnArray
 }
 var error_code_filter = ""
 var robot_tags_filter = ""
