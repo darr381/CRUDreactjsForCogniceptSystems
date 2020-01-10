@@ -35,7 +35,7 @@
 * Database.js filter input requires " " to recognise a robot tag, do not put " " to filter via error_code
 * ag-grid is controlled by this.state.rowData , change rowData will rerender ag-grid.
 * Queries made to the database that retrieves resolution must include timezone in query see file for example.
-* GET queries are faster than UPDATE queries so setTimeout() is used  in GET requests to ensure proper update of database before issuing a GET request
+* GET queries are faster than UPDATE queries so setTimeout() is used  in GET requests to ensure proper update of database before issuing a GET request. POTENTIL PPROBLEM: currently setTimeout is set at 200, may require long time if database increases 
 * execel file uploaded must be in CSV format comma delimited.
 * CSV file must contain columns headers labelled as "Error Code" , "Error Type","Robot Tags","Error Description"
 * Search Error window uses data from the ag-grid to populate it. Except when rowNode is updated. Because resolution is determiend by the database, a call back to the database must be made to retrieve updates
